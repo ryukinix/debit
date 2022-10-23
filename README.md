@@ -1,6 +1,6 @@
 # debit
 
-Edit debian packages easilly.
+Edit debian packages easilly (or more easier).
 
 # How to install
 
@@ -31,13 +31,12 @@ That command will extract the following files:
 │   ├── etc
 │   └── usr
 └── package.deb
-
 ```
 
 You can edit the contents of extras-* directories and then after finished, in the
 same directory you called `debit unpack`, create a new package with:
 
-> Atention, take care of extras-control file, specially update
+> :exclamation: Take care of extras-control files, specially update
 > `extras-control/md5sums` file if you edit anything there (maybe
 > debit should take care of that someday)
 
