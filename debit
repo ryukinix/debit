@@ -38,6 +38,7 @@ main () {
     case $1 in
         pack) pack-deb $2;;
         unpack) unpack-deb $2;;
+        clean) clean-deb;;
         *) usage;;
     esac
 }
