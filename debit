@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -e
+
+clean-deb () {
+    rm -frv extras-control extras-data debian-binary control.tar.xz data.tar.xz
+}
+
+pack-deb () {
+    local name="${1%.deb}"
+
+    cd extras-control
+    tar cfv control.tar.xz *
+    mv control.tar.xz ..
+    cd ../extras-data
+    tar cfv data.tar.xz *
+    mv data.tar.xz ..
+    cd ..
+    ar r "$name.deb" debian-binary control.tar.xz data.tar.xz
+
+    clean-deb
+}
+
+unpack-deb () {
+    local f="$1"
+
+    ar x "$f"
+    mkdir -p extras-control extras-data
+    tar -C extras-control/ -xf control.tar.*
+    tar -C extras-data/ -xf data.tar.*
+}
+
+usage () {
+    echo "Usage: $0 [pack | unpack] <package.deb>"
+}
+
+main () {
+    case $1 in
+        pack) pack-deb $2;;
+        unpack) unpack-deb $2;;
+        *) usage;;
+    esac
+}
+
+
+main $@
